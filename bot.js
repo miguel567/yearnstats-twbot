@@ -34,8 +34,8 @@ function tweeter() {
       var data = JSON.parse(body);
 
       // This is a random number bot
-      /* console.log(" first apy", data[0].apyOneMonthSample) */
-      var tweet = "This month's yield is from:"
+     
+      var tweet = "This month's yield:"
       var apys = new Array()
       var vaults = new Array()
       for (var i=0; i < data.length; i++){
@@ -46,13 +46,16 @@ function tweeter() {
       }
       var min = Math.min.apply(null,apys).toFixed(2)
       var max = Math.max.apply(null,apys).toFixed(2)
-/*       console.log(apys, vaults)
+/*    console.log(apys, vaults)
       console.log("min", Math.min.apply(null,apys).toFixed(2))
-      console.log("max", Math.max.apply(null,apys).toFixed(2)) */
-      tweet = tweet + " "+min+"% to "+max+"% annualized"
+      console.log("max", Math.max.apply(null,apys).toFixed(2)) 
+      console.log("Best performing vault", vaults[apys.indexOf(Math.max.apply(null,apys))]) */
+      var bestVault = vaults[apys.indexOf(Math.max.apply(null,apys))]
+      
+      tweet = tweet + " "+min+"% to "+max+"% annualized. Best performing vault: "+bestVault+". Start earning yield at yearn.finance/vaults"
       
 
-      // Post that tweet!
+    // Post that tweet!
       T.post('statuses/update', { status: tweet }, tweeted);
 
       // Callback for when the tweet is sent
@@ -62,7 +65,7 @@ function tweeter() {
         } else {
           console.log('Success: ' + data.text);
         }
-      } 
+      }  
     }
   }
 
