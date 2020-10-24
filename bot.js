@@ -22,7 +22,7 @@ var request = require('request');
 tweeter();
 
 // Once every N milliseconds
-setInterval(tweeter, 60*5*1000);
+setInterval(tweeter, 1000 * 60 * 60 * 24);
 
 // Here is the bot!
 function tweeter() {
