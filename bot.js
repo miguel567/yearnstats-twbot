@@ -52,7 +52,7 @@ function tweeter() {
       console.log("Best performing vault", vaults[apys.indexOf(Math.max.apply(null,apys))]) */
       var bestVault = vaults[apys.indexOf(Math.max.apply(null,apys))]
       
-      tweet = tweet + " "+min+"% to "+max+"% annualized. Best performing vault: "+bestVault+". Start earning yield at yearn.finance/vaults"
+      tweet = tweet + " "+min+"% to "+max+"% annualized. \nBest performing vault: "+bestVault+". \nStart earning yield at yearn.finance/vaults"
       
 
     // Post that tweet!
