@@ -39,8 +39,10 @@ function tweeter() {
       var apys = new Array()
       var vaults = new Array()
       for (var i=0; i < data.length; i++){
+        if (data[i].name != 'ChainLink'){ // removing chainLink as it can provide a negative APY and it is not really active.
         apys.push(data[i].apyOneMonthSample)
         vaults.push(data[i].name)
+        }
 
         
       }
@@ -56,7 +58,7 @@ function tweeter() {
       
 
     // Post that tweet!
-      T.post('statuses/update', { status: tweet }, tweeted);
+      //T.post('statuses/update', { status: tweet }, tweeted);
 
       // Callback for when the tweet is sent
       function tweeted(err, data, response) {
