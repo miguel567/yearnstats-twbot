@@ -58,7 +58,7 @@ function tweeter() {
       
 
     // Post that tweet!
-      //T.post('statuses/update', { status: tweet }, tweeted);
+    T.post('statuses/update', { status: tweet }, tweeted);
 
       // Callback for when the tweet is sent
       function tweeted(err, data, response) {
