@@ -18,6 +18,8 @@ var randomWordURL = "https://api.yearn.tools/vaults/apy";
 
 var request = require('request');
 
+var he = require('he');
+
 // Start once
 tweeter();
 
@@ -41,20 +43,20 @@ function tweeter() {
       for (var i=0; i < data.length; i++){
         if (data[i].name != 'ChainLink'){ // removing chainLink as it can provide a negative APY and it is not really active.
         apys.push(data[i].apyOneMonthSample)
-        vaults.push(data[i].name)
+        vaults.push(data[i].name.replace('.',he.decode('&#x2024')))
         }
 
         
       }
       var min = Math.min.apply(null,apys).toFixed(2)
       var max = Math.max.apply(null,apys).toFixed(2)
-/*    console.log(apys, vaults)
+   console.log(apys, vaults)
       console.log("min", Math.min.apply(null,apys).toFixed(2))
       console.log("max", Math.max.apply(null,apys).toFixed(2)) 
-      console.log("Best performing vault", vaults[apys.indexOf(Math.max.apply(null,apys))]) */
+      console.log("Best performing vault", vaults[apys.indexOf(Math.max.apply(null,apys))])
       var bestVault = vaults[apys.indexOf(Math.max.apply(null,apys))]
       
-      tweet = tweet + " "+min+"% to "+max+"% annualized. \nBest performing vault: "+bestVault+". \nStart earning yield at yearn.finance/vaults $YEARN $YFI"
+      tweet = tweet + " "+min+"% to "+max+"% annualized. \nBest performing vault: "+bestVault+". \nStart earning yield at yearn.finance/vaults $YFI #DEFI"
       
 
     // Post that tweet!
