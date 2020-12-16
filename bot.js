@@ -14,7 +14,8 @@ var config = require('./config.js');
 var T = new Twit(config);
 
 // A random word
-var randomWordURL = "https://api.yearn.tools/vaults/apy";
+var apyUrl = "https://api.yearn.tools/vaults/apy";
+const tvlUrl = 'https://api.yearn.tools/tvl';
 
 var request = require('request');
 
@@ -28,8 +29,8 @@ setInterval(tweeter, 1000 * 60 * 60 * 24);
 
 // Here is the bot!
 function tweeter() {
-
-  request(randomWordURL, gotData);
+// get APY
+  request(apyUrl, gotData);
 
   function gotData(error, response, body) {
     if (!error) {
@@ -55,12 +56,28 @@ function tweeter() {
       console.log("max", Math.max.apply(null,apys).toFixed(2)) 
       console.log("Best performing vault", vaults[apys.indexOf(Math.max.apply(null,apys))])
       var bestVault = vaults[apys.indexOf(Math.max.apply(null,apys))]
-      
-      tweet = tweet + " "+min+"% to "+max+"% annualized. \nBest performing vault: "+bestVault+". \nStart earning yield at yearn.finance/vaults $YFI #DEFI"
+
+  // get TVL
+  request(tvlUrl, gotTvlData);
+  var tvlDataUSD;
+  function gotTvlData(error, response, body) {
+    if (!error) {
+      var tvlData = JSON.parse(body); 
+      tvlDataUSD = tvlData.TvlUSD.toLocaleString("en", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+        });
+     
+
+      tweet = tweet + " "+min+"% to "+max+"% annualized. \nBest performing vault: "+bestVault+". \nTotal Value Locked: "+tvlDataUSD+"\nStart earning yield at yearn.finance/vaults $YFI #DEFI"
       
 
     // Post that tweet!
     T.post('statuses/update', { status: tweet }, tweeted);
+  }
+}
 
       // Callback for when the tweet is sent
       function tweeted(err, data, response) {
