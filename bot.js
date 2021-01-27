@@ -71,7 +71,7 @@ function tweeter() {
         });
      
 
-      tweet = tweet + " "+min+"% to "+max+"% annualized. \nBest performing vault: "+bestVault+". \nTotal Value Locked: "+tvlDataUSD+"\nStart earning yield at yearn.finance/vaults $YFI #DEFI"
+      tweet = tweet + " "+min+"% to "+max+"% annualized. \nBest performing vault: "+bestVault+". \nTotal Value Locked: "+tvlDataUSD+"\nStart earning yield at yearn"+he.decode('&#x2024')+"finance/vaults $YFI #DEFI"
       
 
     // Post that tweet!
