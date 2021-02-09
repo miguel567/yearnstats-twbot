@@ -42,7 +42,8 @@ function tweeter() {
       var apys = new Array()
       var vaults = new Array()
       for (var i=0; i < data.length; i++){
-        if (data[i].name != 'ChainLink'){ // removing chainLink as it can provide a negative APY and it is not really active.
+        console.log(data[i].name);
+        if ((data[i].name != 'ChainLink') && (data[i].name != 'DAI')){ // removing chainLink as it can provide a negative APY and it is not really active.
         apys.push(data[i].apyOneMonthSample)
         vaults.push(data[i].name.replace('.',he.decode('&#x2024')))
         }
@@ -75,7 +76,7 @@ function tweeter() {
       
 
     // Post that tweet!
-    T.post('statuses/update', { status: tweet }, tweeted);
+    // T.post('statuses/update', { status: tweet }, tweeted);
   }
 }
 
