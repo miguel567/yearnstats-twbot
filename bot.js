@@ -76,7 +76,7 @@ function tweeter() {
       
 
     // Post that tweet!
-    // T.post('statuses/update', { status: tweet }, tweeted);
+    T.post('statuses/update', { status: tweet }, tweeted);
   }
 }
 
