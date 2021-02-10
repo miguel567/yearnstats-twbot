@@ -14,7 +14,7 @@ var config = require('./config.js');
 var T = new Twit(config);
 
 // A random word
-var apyUrl = "https://api.yearn.tools/vaults/apy";
+var apyUrl = "https://api.yearn.tools/vaults/all";
 const tvlUrl = 'https://api.yearn.tools/tvl';
 
 var request = require('request');
@@ -42,17 +42,18 @@ function tweeter() {
       var apys = new Array()
       var vaults = new Array()
       for (var i=0; i < data.length; i++){
-        console.log(data[i].name);
-        if ((data[i].name != 'ChainLink') && (data[i].name != 'DAI')){ // removing chainLink as it can provide a negative APY and it is not really active.
-        apys.push(data[i].apyOneMonthSample)
-        vaults.push(data[i].name.replace('.',he.decode('&#x2024')))
+        //console.log(data[i].displayName);
+        if(data[i].apy.oneMonthSample > 0 ){// removing chainLink as it can provide a negative APY and it is not really active.
+          //console.log(data[i].apy.oneMonthSample);
+          apys.push(data[i].apy.oneMonthSample)
+          vaults.push(data[i].name.replace('.',he.decode('&#x2024')))
         }
 
         
       }
-      var min = Math.min.apply(null,apys).toFixed(2)
-      var max = Math.max.apply(null,apys).toFixed(2)
-   console.log(apys, vaults)
+      var min = Math.min.apply(null,apys).toFixed(2)*100
+      var max = Math.max.apply(null,apys).toFixed(2)*100
+      console.log(apys, vaults)
       console.log("min", Math.min.apply(null,apys).toFixed(2))
       console.log("max", Math.max.apply(null,apys).toFixed(2)) 
       console.log("Best performing vault", vaults[apys.indexOf(Math.max.apply(null,apys))])
@@ -76,7 +77,8 @@ function tweeter() {
       
 
     // Post that tweet!
-    T.post('statuses/update', { status: tweet }, tweeted);
+    //console.log(tweet);
+   T.post('statuses/update', { status: tweet }, tweeted);
   }
 }
 
